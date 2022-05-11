@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getUser } from './services/fetch-utils';
 import { BrowserRouter as Router, Switch, NavLink, Route, Redirect } from 'react-router-dom';
 import AuthPage from './AuthPage';
-import DetailPage from './DetailPage';
+import UpdatePage from './UpdatePage';
 import ListPage from './ListPage';
 import CreatePage from './CreatePage';
 
@@ -19,10 +19,9 @@ export default function App() {
   useEffect(() => {
     const user = getUser();
 
-    // if (user) {
-    //   setToken(user.access_token);
-    //   setEmail(user.user.email);
-    // }
+    if (user) {
+      setUser(user);
+    }
   }, []);
 
   // add a useEffect to get the user and inject the user object into state on load
@@ -52,7 +51,7 @@ export default function App() {
         <main>
           <Switch>
             <Route exact path="/">
-              {user ? <Redirect to="/list" /> : <AuthPage setUser={setUser} />}
+              {user ? <Redirect to="/board-games" /> : <AuthPage setUser={setUser} />}
               {/* if there is a user, redirect to the board games list. Otherwise, render the auth page. Note that the AuthPage will need a function called setUser that can set the user state in App.js */}
             </Route>
             <Route exact path="/board-games">
@@ -61,7 +60,7 @@ export default function App() {
             </Route>
             <Route exact path="/board-games/:id">
               {/* if there is a user, render the detail page. Otherwise, redirect to the home route/auth page */}
-              {user ? <DetailPage /> : <Redirect to="/" />}
+              {user ? <UpdatePage /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/create">
               {/* if there is a user, render the create page. Otherwise, redirect to the home route/auth page */}

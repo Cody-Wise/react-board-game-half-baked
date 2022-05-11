@@ -16,7 +16,7 @@ export default function AuthPage({ setUser }) {
 
     await signIn(signInEmail, signInPassword);
 
-    const user = getUser;
+    const user = getUser();
 
     setUser(user);
 
@@ -32,7 +32,7 @@ export default function AuthPage({ setUser }) {
 
     await signUp(signUpEmail, signUpPassword);
 
-    const user = getUser;
+    const user = getUser();
 
     setUser(user);
   }

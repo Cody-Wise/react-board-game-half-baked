@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import reactRouterDom from 'react-router-dom';
-import { createGame } from './services/fetch-utils';
-import { useHistory } from 'react-router-dom';
+import { createGame, getGameById, updateGame } from './services/fetch-utils';
+import { useHistory, useParams } from 'react-router-dom';
 
-export default function CreatePage() {
+export default function UpdatePage() {
   // you'll need the history hook from react-router-dom to do your redirecting in the handleSubmit
 
   // here's the state you'll need:
@@ -15,6 +15,7 @@ export default function CreatePage() {
   // maxPlayers;
 
   const history = useHistory();
+  const id = useParams();
 
   const [gameInTheForm, setGameInTheForm] = useState({
     title: '',
@@ -25,10 +26,19 @@ export default function CreatePage() {
     max_players: '',
   });
 
+  useEffect(() => {
+    async function load() {
+      const game = await getGameById(id);
+
+      setGameInTheForm(game);
+    }
+    load();
+  }, [id]);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await createGame(gameInTheForm);
+    await updateGame(id, gameInTheForm);
 
     history.push('/board-games');
 
