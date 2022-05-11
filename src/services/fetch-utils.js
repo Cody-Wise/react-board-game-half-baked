@@ -44,8 +44,8 @@ export async function getGameById(id) {
   return checkError(response);
 }
 
-export async function updateGame(id, newGame) {
-  const { body, error } = await client.from('board-games').update(newGame).match({ id });
+export async function updateGame(game) {
+  const { body, error } = await client.from('board-games').update([game]).match({ id: game.id });
 
   return error || body;
 }

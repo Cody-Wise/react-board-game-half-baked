@@ -13,6 +13,7 @@ export default function Game({ game }) {
         <p>
           for {game.min_players} - {game.max_players} players
         </p>
+        <p>{game.description}</p>
       </Link>
     </div>
   );
