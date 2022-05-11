@@ -19,8 +19,6 @@ export default function App() {
   useEffect(() => {
     const user = getUser();
 
-    console.log(user);
-
     // if (user) {
     //   setToken(user.access_token);
     //   setEmail(user.user.email);
@@ -54,17 +52,20 @@ export default function App() {
         <main>
           <Switch>
             <Route exact path="/">
-              {user ? <Redirect to="/list" /> : <AuthPage />}
+              {user ? <Redirect to="/list" /> : <AuthPage setUser={setUser} />}
               {/* if there is a user, redirect to the board games list. Otherwise, render the auth page. Note that the AuthPage will need a function called setUser that can set the user state in App.js */}
             </Route>
             <Route exact path="/board-games">
               {/* if there is a user, render the board games list. Otherwise, redirect to the home route/auth page */}
+              {user ? <ListPage /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/board-games/:id">
               {/* if there is a user, render the detail page. Otherwise, redirect to the home route/auth page */}
+              {user ? <DetailPage /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/create">
               {/* if there is a user, render the create page. Otherwise, redirect to the home route/auth page */}
+              {user ? <CreatePage /> : <Redirect to="/" />}
             </Route>
           </Switch>
         </main>
