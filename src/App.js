@@ -39,7 +39,7 @@ export default function App() {
         <header>
           {user ? (
             <div>
-              <NavLink to="/list">Board Games List</NavLink>
+              <NavLink to="/board-games">Board Games List</NavLink>
               <NavLink to="/create">Create Board Game</NavLink>
               <button onClick={handleLogout}>Log Out</button>
             </div>

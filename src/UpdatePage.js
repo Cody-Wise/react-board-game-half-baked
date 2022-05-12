@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { reactRouterDom } from 'react-router-dom';
 import { getGameById, updateGame } from './services/fetch-utils';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
@@ -29,16 +28,16 @@ export default function UpdatePage() {
 
   useEffect(() => {
     async function load() {
-      const game = await getGameById(match.params.id);
+      const thisgame = await getGameById(match.params.id);
 
-      setGame(game);
+      setGame(thisgame);
     }
     load();
   }, [match.params.id]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    console.log(game);
     await updateGame(game);
 
     history.push('/board-games');
@@ -150,7 +149,7 @@ export default function UpdatePage() {
             name="description"
           />
         </label>
-        <button>Create game</button>
+        <button>Update game</button>
       </form>
     </div>
   );

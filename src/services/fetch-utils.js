@@ -34,7 +34,6 @@ export async function createGame(game) {
 export async function getGames() {
   const response = await client.from('board_games').select();
 
-  console.log(response);
   return checkError(response);
 }
 
@@ -45,7 +44,7 @@ export async function getGameById(id) {
 }
 
 export async function updateGame(game) {
-  const { body, error } = await client.from('board-games').update([game]).match({ id: game.id });
+  const { body, error } = await client.from('board_games').update([game]).match({ id: game.id });
 
   return error || body;
 }

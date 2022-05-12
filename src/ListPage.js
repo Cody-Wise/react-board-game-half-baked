@@ -17,7 +17,7 @@ export default function ListPage() {
 
   // fetch the games on load and inject them into state
   return (
-    <div className="list games">
+    <div className="games">
       {/* map through the games in state and render Game components */}
       {games.map((game, i) => (
         <Game key={game + i} game={game} />
