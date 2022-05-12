@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { createGame } from './services/fetch-utils';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getGameById, updateGame } from './services/fetch-utils';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
-export default function CreatePage() {
+export default function UpdatePage() {
   // you'll need the history hook from react-router-dom to do your redirecting in the handleSubmit
 
   // here's the state you'll need:
@@ -13,21 +13,31 @@ export default function CreatePage() {
   // minPlayers;
   // maxPlayers;
 
+  const match = useRouteMatch();
   const history = useHistory();
+  const [game, setGame] = useState({});
 
-  const [gameInTheForm, setGameInTheForm] = useState({
-    title: '',
-    genre: 'Tile-laying',
-    designer: '',
-    description: '',
-    min_players: '',
-    max_players: '',
-  });
+  // const [gameInTheForm, setGameInTheForm] = useState({
+  //   title: '',
+  //   genre: '',
+  //   designer: '',
+  //   description: '',
+  //   min_players: '',
+  //   max_players: '',
+  // });
+
+  useEffect(() => {
+    async function load() {
+      const thisgame = await getGameById(match.params.id);
+
+      setGame(thisgame);
+    }
+    load();
+  }, [match.params.id]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    await createGame(gameInTheForm);
+    await updateGame(game);
 
     history.push('/board-games');
 
@@ -45,10 +55,10 @@ export default function CreatePage() {
           Title
           {/* on change, set the title in state */}
           <input
-            value={gameInTheForm.title}
+            value={game.title}
             onChange={(e) =>
-              setGameInTheForm({
-                ...gameInTheForm,
+              setGame({
+                ...game,
                 title: e.target.value,
               })
             }
@@ -60,10 +70,10 @@ export default function CreatePage() {
           Genre
           {/* on change, set the genre in state */}
           <select
-            value={gameInTheForm.genre}
+            value={game.genre}
             onChange={(e) =>
-              setGameInTheForm({
-                ...gameInTheForm,
+              setGame({
+                ...game,
                 genre: e.target.value,
               })
             }
@@ -82,10 +92,10 @@ export default function CreatePage() {
           Designer
           {/* on change, set the designer in state */}
           <input
-            value={gameInTheForm.designer}
+            value={game.designer}
             onChange={(e) =>
-              setGameInTheForm({
-                ...gameInTheForm,
+              setGame({
+                ...game,
                 designer: e.target.value,
               })
             }
@@ -97,10 +107,10 @@ export default function CreatePage() {
           Min Players
           {/* on change, set the min players in state */}
           <input
-            value={gameInTheForm.min_players}
+            value={game.min_players}
             onChange={(e) =>
-              setGameInTheForm({
-                ...gameInTheForm,
+              setGame({
+                ...game,
                 min_players: e.target.value,
               })
             }
@@ -112,10 +122,10 @@ export default function CreatePage() {
           Max Players
           {/* on change, set the max players in state */}
           <input
-            value={gameInTheForm.max_players}
+            value={game.max_players}
             onChange={(e) =>
-              setGameInTheForm({
-                ...gameInTheForm,
+              setGame({
+                ...game,
                 max_players: e.target.value,
               })
             }
@@ -127,10 +137,10 @@ export default function CreatePage() {
           Description
           {/* on change, set the description in state */}
           <textarea
-            value={gameInTheForm.description}
+            value={game.description}
             onChange={(e) =>
-              setGameInTheForm({
-                ...gameInTheForm,
+              setGame({
+                ...game,
                 description: e.target.value,
               })
             }
@@ -138,7 +148,7 @@ export default function CreatePage() {
             name="description"
           />
         </label>
-        <button>Create game</button>
+        <button>Update game</button>
       </form>
     </div>
   );
