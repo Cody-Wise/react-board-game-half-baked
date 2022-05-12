@@ -37,7 +37,6 @@ export default function UpdatePage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(game);
     await updateGame(game);
 
     history.push('/board-games');

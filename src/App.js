@@ -13,8 +13,6 @@ export default function App() {
   // You'll need to track the user in state
 
   const [user, setUser] = useState('');
-  const [email, setEmail] = useState();
-  const [token, setToken] = useState();
 
   useEffect(() => {
     const user = getUser();

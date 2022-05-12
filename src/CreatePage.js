@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import reactRouterDom from 'react-router-dom';
 import { createGame } from './services/fetch-utils';
 import { useHistory } from 'react-router-dom';
 
@@ -18,7 +17,7 @@ export default function CreatePage() {
 
   const [gameInTheForm, setGameInTheForm] = useState({
     title: '',
-    genre: '',
+    genre: 'Tile-laying',
     designer: '',
     description: '',
     min_players: '',
