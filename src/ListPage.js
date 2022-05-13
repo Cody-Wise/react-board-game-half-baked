@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { getGames } from './services/fetch-utils';
 import Game from './Game';
 import React from 'react';
