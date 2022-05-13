@@ -33,7 +33,7 @@ export default class ListPage extends React.Component {
     return (
       <div className="games">
         {/* map through the games in state and render Game components */}
-        {this.games.map((game, i) => (
+        {this.state.games.map((game, i) => (
           <Game key={game + i} game={game} />
         ))}
       </div>
